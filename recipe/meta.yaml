@@ -1,5 +1,4 @@
 {% set version = '2.01-40' %}
-
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,36 +9,39 @@ package:
 source:
   fn: splancs_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/splancs_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/splancs/splancs_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/splancs_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/splancs/splancs_{{ version }}.tar.gz
   sha256: 79744381ebc4a361740a36dca3c9fca9ae015cfe0bd585b7856a664a3da74363
 
 build:
   merge_build_host: True  # [win]
-  number: 1
+  number: 2
   skip: true  # [win32]
-
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - posix                # [win]
-    - {{ compiler('fortran') }}        # [unix]
-    - {{ compiler('m2w64_fortran') }}  # [win]
-    - {{ compiler('c') }}        # [unix]
-    - {{ compiler('m2w64_c') }}  # [win]
+    - {{ compiler('c') }}        # [not win]
+    - {{ compiler('fortran') }}  # [not win]
+    - {{native}}toolchain        # [win]
+    - {{posix}}filesystem        # [win]
+    - {{posix}}make
+    - {{posix}}sed               # [win]
+    - {{posix}}coreutils         # [win]
+    - {{posix}}zip               # [win]
   host:
     - r-base
     - r-sp >=0.9
   run:
     - r-base
+    - {{native}}gcc-libs         # [win]
     - r-sp >=0.9
 
 test:
   commands:
-    - $R -e "library('splancs')"  # [not win]
+    - $R -e "library('splancs')"           # [not win]
     - "\"%R%\" -e \"library('splancs')\""  # [win]
 
 about:
@@ -47,11 +49,15 @@ about:
   license: GPL (>= 2)
   summary: 'The Splancs package was written as an enhancement to S-Plus for display and analysis
     of spatial point pattern data; it has been ported to R and is in "maintenance mode". '
-
   license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
 
 extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
     - daler
+    - jdblischak
+    - cbrueffer
+    - dbast
