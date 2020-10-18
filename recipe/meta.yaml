@@ -7,7 +7,6 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: splancs_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/splancs_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/splancs/splancs_{{ version }}.tar.gz
@@ -16,7 +15,6 @@ source:
 build:
   merge_build_host: True  # [win]
   number: 1006
-  skip: true  # [win32]
   rpaths:
     - lib/R/lib/
     - lib/
@@ -47,18 +45,13 @@ test:
 
 about:
   home: http://www.maths.lancs.ac.uk/~rowlings/Splancs/
-  license: GPL (>= 2)
+  license: GPL-2.0-or-later
   summary: 'The Splancs package was written as an enhancement to S-Plus for display and analysis
     of spatial point pattern data; it has been ported to R and is in "maintenance mode". '
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file:
+    - '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
