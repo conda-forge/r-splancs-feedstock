@@ -1,4 +1,4 @@
-{% set version = "2.01-42" %}
+{% set version = "2.01-43" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,7 +10,7 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/splancs_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/splancs/splancs_{{ version }}.tar.gz
-  sha256: 8c0af4764521e20b629dba6afd5c284e7be48786f378c37668eacfa26d2ef0aa
+  sha256: b351565e1f69f6c86a29d921d3a18d5896c4586e2ab8c73bb3df8e75630fc448
 
 build:
   merge_build_host: true  # [win]
