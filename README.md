@@ -3,6 +3,7 @@ About r-splancs-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/r-splancs-feedstock/blob/main/LICENSE.txt)
 
+
 About r-splancs
 ---------------
 
@@ -11,6 +12,7 @@ Home: http://www.maths.lancs.ac.uk/~rowlings/Splancs/
 Package license: GPL-2.0-or-later
 
 Summary: The Splancs package was written as an enhancement to S-Plus for display and analysis of spatial point pattern data; it has been ported to R and is in "maintenance mode". 
+
 About r-splancs
 ---------------
 
